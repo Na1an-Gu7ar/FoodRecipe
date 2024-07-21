@@ -5,28 +5,29 @@ export const GlobalContext = createContext(null)
 export default function GlobalState({children}){
 
     const [data, setData] = useState([])
-    const [loading, setLaoding] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
+    const [details, setDetails] = useState([])
 
     const fetchData = async (event) => {
         event.preventDefault()
-        setLaoding(true)
+        setLoading(true)
         try {
             let url = `https://forkify-api.herokuapp.com/api/v2/recipes?search=${search}`
             let response = await fetch(url)
             if(response.ok){
                 let data = await response.json()
                 setData(data?.data?.recipes)
-                setLaoding(false)
+                setLoading(false)
                 setSearch('')
             }
         } catch (error) {
-            setLaoding(false)
+            setLoading(false)
             setSearch('')
         }
     }
 
     return (
-        <GlobalContext.Provider value={{data, loading, search, setSearch, fetchData}}>{children}</GlobalContext.Provider>
+        <GlobalContext.Provider value={{data, loading, search, setSearch, fetchData, details, setDetails, setLoading}}>{children}</GlobalContext.Provider>
     )
 }
