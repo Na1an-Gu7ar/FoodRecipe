@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import { GlobalContext } from '../../context'
 import { useParams } from 'react-router-dom'
+import Button from '../../components/button'
 
 const index = () => {
 
     const { id } = useParams()
 
-    const { details, setDetails, loading, setLoading } = useContext(GlobalContext)
+    const { details, setDetails, loading, setLoading, addFavourites, favourites } = useContext(GlobalContext)
 
     const fetchDetails = async () => {
         setLoading(true)
@@ -33,6 +34,7 @@ const index = () => {
             {
                 details && (
                     <div className='flex flex-row justify-center items-center'>
+                        <Button value={favourites && favourites.length > 0 && favourites.findIndex((item) => item.id === details?.id)!==-1 ? 'Remove' : 'Add to favourites'} onClick={() => addFavourites(details)} to={'/favourites'} />
                         <div className='w-7/12 h-80 mt-20'><img className='h-full w-full' src={details?.image_url} alt={details?.title} /></div>
                         <div className='flex flex-col gap-5'>
                             <div className='text-center text-3xl'>{details?.title}</div>

@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../../context'
 import Button from '../../components/button'
-import Details from '../Details/index'
 
 const index = () => {
 
-    const {loading, data} = useContext(GlobalContext)
+    const {loading, data } = useContext(GlobalContext)
 
     if(loading) {
         return <div className='text-center mt-56'>Loading...</div>
@@ -28,7 +27,7 @@ const index = () => {
                         )
                     })
                 )
-                : "Please search Recipe's"
+                : "No recipe found, please search"
             }
         </div>
     )
